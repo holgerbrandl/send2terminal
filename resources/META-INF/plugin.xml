@@ -1,0 +1,86 @@
+<idea-plugin version="2">
+    <id>send2terminal</id>
+    <name>Send To Terminal</name>
+    <version>1.0</version>
+    <vendor email="" url="https://github.com/holgerbrandl/send2terminal">YourCompany</vendor>
+
+    <description><![CDATA[
+        Intellij plugin to send line or selection to terminal<br>
+
+        The following modes are supported
+        <ul>
+            <li> Send current line
+            <li> Send current and move focus to next line with expression
+            <li> Send current selection
+        </ul>
+
+        Supported evaluation targets are
+        <ul>
+            <li>Terminal (MacOS)
+            <li>iTerm2 (MacOS)
+            <li>R GUI (Windows)
+        </ul>
+        ]]></description>
+
+
+    <change-notes><![CDATA[
+        Initial Release. This plugin was originally developed as part of <a
+                href="https://github.com/holgerbrandl/r4intellij">R language support for
+            Intellij"</a> but it now evolved separately.
+        ]]>
+  </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="145.0"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+    <project-components>
+        <component>
+            <implementation-class>io.github.holgerbrandl.send2terminal.actions.CodeEvalActionRegistry
+            </implementation-class>
+            <skipForDefaultProject/>
+        </component>
+        O
+    </project-components>
+
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+
+        <projectConfigurable instance="io.github.holgerbrandl.send2terminal.settings.S2TConfigurable"/>
+        <!--<applicationService serviceInterface="S2TSer"-->
+        <!--serviceImplementation="com.r4intellij.settings.RSettings"/>-->
+        <applicationService serviceInterface="io.github.holgerbrandl.send2terminal.settings.S2TSettings"
+                            serviceImplementation="io.github.holgerbrandl.send2terminal.settings.S2TSettings"/>
+    </extensions>
+
+    <actions>
+        <group class="io.github.holgerbrandl.send2terminal.actions.S2TActionGroup" id="CodeSnippetActionMenu">
+
+            <separator/>
+            <action id="EvalSelction" class="io.github.holgerbrandl.send2terminal.actions.RunSelectedTextOrLineAction"
+                    text="Evaluate"
+                    description="Evaluates the current line or selection">
+                <keyboard-shortcut keymap="$default" first-keystroke="meta alt ENTER"/>
+            </action>
+
+            <!--<action id="EvalHeadNrow" class="com.r4intellij.actions.HeadNrowEvalAction" text="head+nrow"-->
+            <!--description="Evaluates head and nrow for the current data.frame object">-->
+            <!--<keyboard-shortcut keymap="$default" first-keystroke="meta alt H"/>-->
+            <!--</action>-->
+
+            <!--<action id="EvalStr" class="com.r4intellij.actions.ShowStructureEvalAction" text="str()"-->
+            <!--description="Calls the str for the current word or selection">-->
+            <!--<keyboard-shortcut keymap="$default" first-keystroke="meta alt S"/>-->
+            <!--</action>-->
+
+            <separator/>
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </group>
+    </actions>
+
+</idea-plugin>
