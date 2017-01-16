@@ -2,7 +2,7 @@
     <id>send2terminal</id>
     <name>Send To Terminal</name>
     <version>1.0</version>
-    <vendor email="" url="https://github.com/holgerbrandl/send2terminal">YourCompany</vendor>
+    <vendor email="" url="https://github.com/holgerbrandl/send2terminal">Holger Brandl</vendor>
 
     <description><![CDATA[
         Intellij plugin to send line or selection to terminal<br>
