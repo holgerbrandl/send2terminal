@@ -34,3 +34,8 @@ Clone from `https://github.com/holgerbrandl/send2terminal`, open project in Inte
 ## Support & Development
 
 Feel welcome to suggest features or improvments by submitting an [issue](https://github.com/holgerbrandl/send2terminal/issues)
+
+
+## References
+
+* [Official Plugin Page ](https://plugins.jetbrains.com/idea/plugin/9409-send-to-terminal) in Jetbrains` Plugin Repository
