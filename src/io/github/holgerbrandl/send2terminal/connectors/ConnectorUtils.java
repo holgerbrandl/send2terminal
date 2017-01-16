@@ -29,7 +29,7 @@ public class ConnectorUtils {
             return new RGWLauncher();
 //        }else if (Utils.isLinux()) {
         } else {
-            log.error("Platform not yet supported for R-code snippet evelation");
+            log.error("Platform not yet supported for code snippet evaluation");
             return null;
         }
     }

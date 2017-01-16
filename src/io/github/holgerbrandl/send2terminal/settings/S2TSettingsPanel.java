@@ -30,7 +30,7 @@ public class S2TSettingsPanel {
 
 
     public static String[] getEvalTargetOptions() {
-        return Utils.isMacOSX() ? new String[]{"R", "Terminal", "iTerm"} : Utils.isWindowsPlatform() ? new String[]{"R"} : new String[]{"<NA>"};
+        return Utils.isMacOSX() ? new String[]{"Terminal", "iTerm", "R"} : Utils.isWindowsPlatform() ? new String[]{"R"} : new String[]{"<NA>"};
     }
 
 
