@@ -37,8 +37,7 @@ public class S2TActionGroup extends DefaultActionGroup {
 
         // just enable the menu if an R file is open
         // todo refacotor language specific tweaks into extension point
-        boolean hasRExtension = data[0].getExtension() != null && "R".equals(data[0].getExtension());
-
-        e.getPresentation().setEnabled(hasRExtension);
+//        boolean hasRExtension = data[0].getExtension() != null && "R".equals(data[0].getExtension());
+//        e.getPresentation().setEnabled(hasRExtension);
     }
 }
