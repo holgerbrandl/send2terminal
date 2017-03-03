@@ -1,17 +1,16 @@
 <idea-plugin version="2">
     <id>send2terminal</id>
     <name>Send To Terminal</name>
-    <version>1.0</version>
+    <version>1.1</version>
     <vendor email="" url="https://github.com/holgerbrandl/send2terminal">Holger Brandl</vendor>
 
     <description><![CDATA[
-        Intellij plugin to send line or selection to terminal<br>
+        Intellij plugin to send and evaluate current, selection or expression in terminal<br>
 
         The following modes are supported
         <ul>
-            <li> Send current line
-            <li> Send current and move focus to next line with expression
-            <li> Send current selection
+            <li> Evaluate the current line or selection in the terminal
+            <li> Evaluate the current most top-level expression under the caret in the terminal
         </ul>
 
         Supported evaluation targets are
@@ -25,9 +24,8 @@
 
 
     <change-notes><![CDATA[
-        Initial Release. This plugin was originally developed as part of <a
-                href="https://github.com/holgerbrandl/r4intellij">R language support for
-            Intellij"</a> but it now evolved separately.
+        <p>Changes are documented in our [change log ](https://github.com/holgerbrandl/r4intellij/blob/master/Changes.md)
+            on the project page.</p>
         ]]>
   </change-notes>
 
@@ -66,13 +64,13 @@
             <action id="EvalSelection"
                     class="io.github.holgerbrandl.send2terminal.actions.EvaluateLineOrSelectionAction"
                     text="Evaluate Line/Selection in Terminal"
-                    description="Evaluate the current line or selection in the Terminal">
+                    description="Evaluate the current line or selection in the terminal">
                 <keyboard-shortcut keymap="$default" first-keystroke="meta alt ENTER"/>
             </action>
 
             <action id="EvalExpression" class="io.github.holgerbrandl.send2terminal.actions.EvaluateExpressionAction"
                     text="Evaluate Expression in Terminal"
-                    description="Evaluate the current expression in the Terminal">
+                    description="Evaluate the current expression in the terminal">
                 <keyboard-shortcut keymap="$default" first-keystroke="meta alt shift ENTER"/>
             </action>
 
