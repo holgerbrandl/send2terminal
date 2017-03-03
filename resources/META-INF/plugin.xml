@@ -63,10 +63,17 @@
         <group class="io.github.holgerbrandl.send2terminal.actions.S2TActionGroup" id="CodeSnippetActionMenu">
 
             <separator/>
-            <action id="EvalSelction" class="io.github.holgerbrandl.send2terminal.actions.RunSelectedTextOrLineAction"
-                    text="Evaluate"
-                    description="Evaluates the current line or selection">
+            <action id="EvalSelection"
+                    class="io.github.holgerbrandl.send2terminal.actions.EvaluateLineOrSelectionAction"
+                    text="Evaluate Line/Selection in Terminal"
+                    description="Evaluate the current line or selection in the Terminal">
                 <keyboard-shortcut keymap="$default" first-keystroke="meta alt ENTER"/>
+            </action>
+
+            <action id="EvalExpression" class="io.github.holgerbrandl.send2terminal.actions.EvaluateExpressionAction"
+                    text="Evaluate Expression in Terminal"
+                    description="Evaluate the current expression in the Terminal">
+                <keyboard-shortcut keymap="$default" first-keystroke="meta alt shift ENTER"/>
             </action>
 
             <!--<action id="EvalHeadNrow" class="com.r4intellij.actions.HeadNrowEvalAction" text="head+nrow"-->

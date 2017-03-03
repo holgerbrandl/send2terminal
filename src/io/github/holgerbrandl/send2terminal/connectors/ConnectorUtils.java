@@ -35,7 +35,7 @@ public class ConnectorUtils {
     }
 
 
-    public static void push2R(String text) {
+    public static void sendText(String text) {
         CodeLaunchConnector codeLaunchConnector = getPlatformConnector();
         if (codeLaunchConnector != null) {
             codeLaunchConnector.submitCode(text, !S2TSettings.getInstance().keepFocusInEditor);
