@@ -8,6 +8,8 @@
 package io.github.holgerbrandl.send2terminal.connectors;
 
 
+import com.google.common.base.Splitter;
+import com.google.common.collect.Iterables;
 import io.github.holgerbrandl.send2terminal.Utils;
 import io.github.holgerbrandl.send2terminal.settings.S2TSettings;
 
@@ -26,8 +28,7 @@ public class AppleScriptConnector implements CodeLaunchConnector {
     }
 
 
-    @Override
-    public void submitCode(String rCommands, boolean switchFocus2R) {
+    private static void submitCodeInternal(String rCommands, boolean switchFocusToTerminal) {
         try {
 
             if (Utils.isMacOSX()) {
@@ -49,18 +50,18 @@ public class AppleScriptConnector implements CodeLaunchConnector {
                 if (evalTarget.equals("Terminal")) {
                     evalSelection = "tell application \"" + "Terminal" + "\" to do script \"" + dquotesExpandedText + "\" in window 0";
 
-                    if (switchFocus2R) {
+                    if (switchFocusToTerminal) {
                         evalSelection = "tell application \"Terminal\" to activate\n" + evalSelection;
                     }
 
                 } else if (evalTarget.equals("iTerm")) {
                     evalSelection = "tell application \"iTerm\" to tell current session of current terminal  to write text  \"" + dquotesExpandedText + "\"";
-                    if (switchFocus2R) {
+                    if (switchFocusToTerminal) {
                         evalSelection = "tell application \"iTerm\" to activate\n" + evalSelection;
                     }
 
                 } else {
-                    if (switchFocus2R) {
+                    if (switchFocusToTerminal) {
                         evalSelection = "tell application \"" + evalTarget + "\" to activate\n" +
                                 "tell application \"" + evalTarget + "\" to cmd \"" + dquotesExpandedText + "\"";
                     } else {
@@ -75,5 +76,21 @@ public class AppleScriptConnector implements CodeLaunchConnector {
         } catch (IOException e1) {
             ConnectorUtils.log.error(e1);
         }
+    }
+
+
+    @Override
+    public void submitCode(String rCommands, boolean switchFocusToTerminal) {
+        // If code is long split it up into chunks, because terminal does not accept more than 1024 characters
+        // See http://unix.stackexchange.com/questions/204815/terminal-does-not-accept-pasted-or-typed-lines-of-more-than-1024-characters
+
+        Iterable<String> textChunks = Splitter.fixedLength(1000).split(rCommands);
+
+        textChunks.forEach(chunk -> submitCodeInternal(chunk, false));
+
+        if (switchFocusToTerminal) {
+            submitCodeInternal("", true);
+        }
+
     }
 }
