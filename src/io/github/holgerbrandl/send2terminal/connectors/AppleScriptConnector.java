@@ -8,11 +8,11 @@
 package io.github.holgerbrandl.send2terminal.connectors;
 
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
+import com.intellij.openapi.ui.DialogBuilder;
 import io.github.holgerbrandl.send2terminal.Utils;
 import io.github.holgerbrandl.send2terminal.settings.S2TSettings;
 
+import javax.swing.*;
 import java.io.IOException;
 
 
@@ -48,6 +48,16 @@ public class AppleScriptConnector implements CodeLaunchConnector {
 
                 String evalSelection;
                 if (evalTarget.equals("Terminal")) {
+                    if (rCommands.length() > 1000) {
+                        DialogBuilder db = new DialogBuilder();
+                        db.setTitle("Operation canceled: ");
+                        db.setCenterPanel(new JLabel("Can't paste more that 1024 characters to MacOS terminal."));
+                        db.addOkAction();
+                        db.show();
+
+                        return;
+                    }
+
                     evalSelection = "tell application \"" + "Terminal" + "\" to do script \"" + dquotesExpandedText + "\" in window 0";
 
                     if (switchFocusToTerminal) {
@@ -84,13 +94,37 @@ public class AppleScriptConnector implements CodeLaunchConnector {
         // If code is long split it up into chunks, because terminal does not accept more than 1024 characters
         // See http://unix.stackexchange.com/questions/204815/terminal-does-not-accept-pasted-or-typed-lines-of-more-than-1024-characters
 
-        Iterable<String> textChunks = Splitter.fixedLength(1000).split(rCommands);
+        // chunk it --> does not work because if script is slow, paste buffer will be exceeded nevertheless
 
-        textChunks.forEach(chunk -> submitCodeInternal(chunk, false));
+        // // this breaks words and does not work because evaluation is always terminated with enter
+        // Iterable<String> textChunks = Splitter.fixedLength(1000).split(rCommands);
 
-        if (switchFocusToTerminal) {
-            submitCodeInternal("", true);
-        }
+//        String lines[] = rCommands.split("\\r?\\n");
+//        String lines[] = rCommands.split("\\R");
+//        List<String> textChunks = new ArrayList<>();
+//
+//        int chunkLimit = 900; // actually 1024 would be possible but lest leave some room for along line
+//        String curChunk = "";
+//
+//        for (String line : lines) {
+//            if (curChunk.length() + line.length() + 1 > chunkLimit) {
+//                textChunks.add(curChunk);
+//                curChunk = line;
+//            } else {
+//                curChunk += "\n" + line;
+//            }
+//        }
+//        // process the chunk in progress
+//        if(!curChunk.isEmpty()) textChunks.add(curChunk);
+//
+//        textChunks.forEach(chunk -> {
+//            submitCodeInternal(chunk, false);
+//        });
+//
+//        if (switchFocusToTerminal) {
+//            submitCodeInternal("", true);
+//        }
 
+        submitCodeInternal(rCommands, switchFocusToTerminal);
     }
 }
