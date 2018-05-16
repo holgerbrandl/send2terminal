@@ -23,11 +23,7 @@ import java.util.List;
  */
 @State(
         name = "Send2Terminal",
-        storages = {
-                @Storage(
-                        id = "Send2Terminal",
-                        file = "$APP_CONFIG$/send-2-terminal-settings.xml"
-                )}
+        storages = @Storage("send-2-terminal-settings.xml")
 )
 public class S2TSettings implements PersistentStateComponent<S2TSettings> {
 

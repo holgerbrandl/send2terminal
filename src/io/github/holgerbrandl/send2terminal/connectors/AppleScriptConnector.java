@@ -28,13 +28,13 @@ public class AppleScriptConnector implements CodeLaunchConnector {
     }
 
 
-    private static void submitCodeInternal(String rCommands, boolean switchFocusToTerminal) {
+    private static void submitCodeInternal(String codeSelection, boolean switchFocusToTerminal) {
         try {
 
             if (Utils.isMacOSX()) {
                 Runtime runtime = Runtime.getRuntime();
 
-                String dquotesExpandedText = rCommands.replace("\\", "\\\\");
+                String dquotesExpandedText = codeSelection.replace("\\", "\\\\");
                 dquotesExpandedText = dquotesExpandedText.replace("\"", "\\\"");
 
                 // trim to remove tailing newline for blocks and especially line evaluation
@@ -48,15 +48,15 @@ public class AppleScriptConnector implements CodeLaunchConnector {
 
                 String evalSelection;
                 if (evalTarget.equals("Terminal")) {
-                    if (rCommands.length() > 1000) {
-                        DialogBuilder db = new DialogBuilder();
-                        db.setTitle("Operation canceled: ");
-                        db.setCenterPanel(new JLabel("Can't paste more that 1024 characters to MacOS terminal."));
-                        db.addOkAction();
-                        db.show();
-
-                        return;
-                    }
+//                    if (codeSelection.length() > 1000) {
+//                        DialogBuilder db = new DialogBuilder();
+//                        db.setTitle("Operation canceled: ");
+//                        db.setCenterPanel(new JLabel("Can't paste more that 1024 characters to MacOS terminal."));
+//                        db.addOkAction();
+//                        db.show();
+//
+//                        return;
+//                    }
 
                     evalSelection = "tell application \"" + "Terminal" + "\" to do script \"" + dquotesExpandedText + "\" in window 0";
 
@@ -93,6 +93,10 @@ public class AppleScriptConnector implements CodeLaunchConnector {
     public void submitCode(String rCommands, boolean switchFocusToTerminal) {
         // If code is long split it up into chunks, because terminal does not accept more than 1024 characters
         // See http://unix.stackexchange.com/questions/204815/terminal-does-not-accept-pasted-or-typed-lines-of-more-than-1024-characters
+        // See http://stackoverflow.com/questions/13216480/paste-character-limit
+        // and for R in particular: Command lines entered at the console are limited[3] to about 4095 bytes (not characters).
+
+
 
         // chunk it --> does not work because if script is slow, paste buffer will be exceeded nevertheless
 

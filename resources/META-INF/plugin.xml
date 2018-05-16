@@ -1,7 +1,7 @@
-<idea-plugin version="2">
+<idea-plugin>
     <id>send2terminal</id>
     <name>Send To Terminal</name>
-    <version>1.1.2</version>
+    <version>1.2</version>
     <vendor email="" url="https://github.com/holgerbrandl/send2terminal">Holger Brandl</vendor>
 
     <description><![CDATA[
@@ -30,18 +30,21 @@
   </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="145.0"/>
+    <idea-version since-build="145.258.11"/>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <!-- uncomment to enable plugin in all products
     <depends>com.intellij.modules.lang</depends>
     -->
+
+    <!-- ensure compatibility with all intellij products-->
+    <depends>com.intellij.modules.lang</depends>
+
     <project-components>
         <component>
             <implementation-class>io.github.holgerbrandl.send2terminal.actions.CodeEvalActionRegistry
             </implementation-class>
-            <skipForDefaultProject/>
         </component>
         O
     </project-components>
