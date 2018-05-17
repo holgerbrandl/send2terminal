@@ -27,6 +27,7 @@ public class S2TSettingsPanel {
     private JTextField evalCode4;
     private JComboBox codeEvalTarget;
     private JCheckBox keepFocusInEditorCheckBox;
+    private JCheckBox usePasteModeForCheckBox;
 
 
     public static String[] getEvalTargetOptions() {
@@ -64,6 +65,7 @@ public class S2TSettingsPanel {
 
         codeEvalTarget.setSelectedItem(settings.codeSnippetEvalTarget == null ? getEvalTargetOptions()[0] : settings.codeSnippetEvalTarget);
         keepFocusInEditorCheckBox.setSelected(settings.keepFocusInEditor);
+        usePasteModeForCheckBox.setSelected(settings.usePasteMode);
     }
 
 
@@ -84,6 +86,7 @@ public class S2TSettingsPanel {
 
         settings.codeSnippetEvalTarget = codeEvalTarget.getSelectedItem().toString();
         settings.keepFocusInEditor = keepFocusInEditorCheckBox.isSelected();
+        settings.usePasteMode = usePasteModeForCheckBox.isSelected();
     }
 
 

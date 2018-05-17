@@ -35,6 +35,7 @@ public class S2TSettings implements PersistentStateComponent<S2TSettings> {
     public List<EvalActionPref> evalActionPrefs = new ArrayList<EvalActionPref>();
     public String codeSnippetEvalTarget = S2TSettingsPanel.getEvalTargetOptions()[0];
     public boolean keepFocusInEditor = true;
+    public boolean usePasteMode = false;
 
     {
         evalActionPrefs.add(new EvalActionPref("head+nrow", "head(%snippet%); nrow(%snippet%);", SNIPACTION_1_DEF_SHORTCUT));

@@ -35,8 +35,10 @@ public class AppleScriptConnector implements CodeLaunchConnector {
             if (Utils.isMacOSX()) {
                 Runtime runtime = Runtime.getRuntime();
 
-                // todo refactor paste mode preference seting
-                boolean usePasteMode = fileType != null && fileType.getName().toLowerCase().equals("kotlin");
+                boolean usePasteMode = S2TSettings.getInstance().usePasteMode &&
+                        fileType != null &&
+                        fileType.getName().toLowerCase().equals("kotlin");
+
                 // just use paste mode if any line starts with a dot
                 usePasteMode = usePasteMode && Arrays.stream(codeSelection.split("\\r?\\n")).anyMatch(s -> s.trim().startsWith("."));
 
