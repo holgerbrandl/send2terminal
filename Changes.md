@@ -2,6 +2,11 @@ Version History of Send2Terminal
 ===============================
 
 
+## v1.2
+
+* Paste mode support when sending kotlin code to terminal. Currently this feature is just enabled for Kotlin source files
+
+
 ## v1.1
 
 * Added additional action to evaluate current most top-level expression in file

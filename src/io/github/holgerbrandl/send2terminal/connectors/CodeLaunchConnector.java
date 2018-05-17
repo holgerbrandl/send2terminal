@@ -7,6 +7,9 @@
 
 package io.github.holgerbrandl.send2terminal.connectors;
 
+import com.intellij.openapi.fileTypes.FileType;
+import org.jetbrains.annotations.Nullable;
+
 public interface CodeLaunchConnector {
 
 
@@ -15,7 +18,8 @@ public interface CodeLaunchConnector {
      *
      * @param rCommands     array with commands
      * @param switchFocus2R if <code>true</code>, switch focus console, else does not change the focus.
+     * @param fileType
      * @return <code>false</code>, if not successful, otherwise <code>true</code> (hint)
      */
-    void submitCode(String rCommands, boolean switchFocus2R);
+    void submitCode(String rCommands, boolean switchFocus2R, @Nullable FileType fileType);
 }

@@ -47,7 +47,7 @@ public class EvaluateExpressionAction extends AnAction {
 
 //            editor.getSelectionModel().setSelection(element.getStartOffsetInParent(), element.getStartOffsetInParent()+ expressionText.length());
 
-            ConnectorUtils.sendText(expressionText);
+            ConnectorUtils.sendText(expressionText, psiFile.getFileType());
 
             // set caret to next downstream element
             // todo add preference to either select or move caret transition after eval

@@ -8,12 +8,13 @@
 package io.github.holgerbrandl.send2terminal.connectors;
 
 
-import com.intellij.openapi.ui.DialogBuilder;
+import com.intellij.openapi.fileTypes.FileType;
 import io.github.holgerbrandl.send2terminal.Utils;
 import io.github.holgerbrandl.send2terminal.settings.S2TSettings;
+import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
 import java.io.IOException;
+import java.util.Arrays;
 
 
 /**
@@ -24,15 +25,24 @@ import java.io.IOException;
 public class AppleScriptConnector implements CodeLaunchConnector {
 
     public static void main(String[] args) {
-        new AppleScriptConnector().submitCode("write.table(head(iris), file=\"~/Desktop/iris.txt\", sep=\"\\t\")\n", true);
+        new AppleScriptConnector().submitCode("write.table(head(iris), file=\"~/Desktop/iris.txt\", sep=\"\\t\")\n", true, null);
     }
 
 
-    private static void submitCodeInternal(String codeSelection, boolean switchFocusToTerminal) {
+    private static void submitCodeInternal(String codeSelection, boolean switchFocusToTerminal, @Nullable FileType fileType) {
         try {
 
             if (Utils.isMacOSX()) {
                 Runtime runtime = Runtime.getRuntime();
+
+                // todo refactor paste mode preference seting
+                boolean usePasteMode = fileType != null && fileType.getName().toLowerCase().equals("kotlin");
+                // just use paste mode if any line starts with a dot
+                usePasteMode = usePasteMode && Arrays.stream(codeSelection.split("\\r?\\n")).anyMatch(s -> s.trim().startsWith("."));
+
+                if (usePasteMode) {
+                    codeSelection = ":paste\n" + codeSelection;
+                }
 
                 String dquotesExpandedText = codeSelection.replace("\\", "\\\\");
                 dquotesExpandedText = dquotesExpandedText.replace("\"", "\\\"");
@@ -64,6 +74,30 @@ public class AppleScriptConnector implements CodeLaunchConnector {
                         evalSelection = "tell application \"Terminal\" to activate\n" + evalSelection;
                     }
 
+                    if (usePasteMode) {
+                        // https://stackoverflow.com/questions/3690167/how-can-one-invoke-a-keyboard-shortcut-from-within-an-applescript
+
+                        evalSelection = evalSelection +
+                                "\n" +
+                                "tell application \"System Events\"\n" +
+//                                "    set currentApplication to name of 1st process whose frontmost is true\n" +
+//                                "    set currentApplication to process appName\n" +
+                                "    set currentApplication to path to frontmost application as text\n" +
+                                "end tell" +
+                                "\n" +
+//                                "delay 1\n" +
+                                "activate application \"Terminal\"\n" +
+                                "tell application  \"System Events\"\n" +
+                                "    keystroke \"d\" using {control down}\n" +
+                                "end tell\n" +
+                                "\n" +
+                                "activate application currentApplication\n";
+//                                "activate \"Intellij IDEA\"";
+                    }
+
+
+
+
                 } else if (evalTarget.equals("iTerm")) {
                     evalSelection = "tell application \"iTerm\" to tell current session of current terminal  to write text  \"" + dquotesExpandedText + "\"";
                     if (switchFocusToTerminal) {
@@ -79,6 +113,7 @@ public class AppleScriptConnector implements CodeLaunchConnector {
                     }
                 }
 
+
                 String[] args = {"osascript", "-e", evalSelection};
 
                 runtime.exec(args);
@@ -90,7 +125,7 @@ public class AppleScriptConnector implements CodeLaunchConnector {
 
 
     @Override
-    public void submitCode(String rCommands, boolean switchFocusToTerminal) {
+    public void submitCode(String rCommands, boolean switchFocusToTerminal, FileType fileType) {
         // If code is long split it up into chunks, because terminal does not accept more than 1024 characters
         // See http://unix.stackexchange.com/questions/204815/terminal-does-not-accept-pasted-or-typed-lines-of-more-than-1024-characters
         // See http://stackoverflow.com/questions/13216480/paste-character-limit
@@ -129,6 +164,6 @@ public class AppleScriptConnector implements CodeLaunchConnector {
 //            submitCodeInternal("", true);
 //        }
 
-        submitCodeInternal(rCommands, switchFocusToTerminal);
+        submitCodeInternal(rCommands, switchFocusToTerminal, fileType);
     }
 }

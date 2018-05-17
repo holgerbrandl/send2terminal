@@ -12,8 +12,11 @@
 package io.github.holgerbrandl.send2terminal.connectors;
 
 
+import com.intellij.mock.MockLanguageFileType;
+import com.intellij.openapi.fileTypes.FileType;
 import io.github.holgerbrandl.send2terminal.Utils;
 
+import javax.annotation.Nullable;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 
@@ -41,7 +44,7 @@ public class RGWLauncher implements CodeLaunchConnector {
     public static void main(String[] args) {
 //        new RGWLauncher().submitCode("print('test')", true);
 //        System.err.println(new RGWLauncher().getLauncher());
-        new RGWLauncher().submitCode("ls()", false);
+        new RGWLauncher().submitCode("ls()", false, null);
 
         System.err.println();
     }
@@ -80,7 +83,7 @@ public class RGWLauncher implements CodeLaunchConnector {
 
 
     @Override
-    public void submitCode(final String rCommands, boolean switchFocus2R) {
+    public void submitCode(final String rCommands, boolean switchFocus2R, @Nullable FileType fileType) {
         final String[] processCmd = new String[]{fExecutable, SubmitType.SUBMITINPUT.toString().toLowerCase()};
 
         // todo use injtellij process status here :  UsageViewImplUtil.runProcessWithProgress

@@ -8,6 +8,7 @@
 package io.github.holgerbrandl.send2terminal.connectors;
 
 import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.openapi.fileTypes.FileType;
 import io.github.holgerbrandl.send2terminal.Utils;
 import io.github.holgerbrandl.send2terminal.settings.S2TSettings;
 
@@ -35,10 +36,12 @@ public class ConnectorUtils {
     }
 
 
-    public static void sendText(String text) {
+    public static void sendText(String text, FileType fileType) {
         CodeLaunchConnector codeLaunchConnector = getPlatformConnector();
         if (codeLaunchConnector != null) {
-            codeLaunchConnector.submitCode(text, !S2TSettings.getInstance().keepFocusInEditor);
+            codeLaunchConnector.submitCode(text, !S2TSettings.getInstance().keepFocusInEditor, fileType);
         }
+
+        //todo maybe we should do some else here in case there is no connector?
     }
 }

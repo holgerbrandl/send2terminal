@@ -43,7 +43,7 @@ public abstract class AbstactEvalTextAction extends AnAction {
         }
 
         if (!StringUtil.isEmptyOrSpaces(selectedText)) {
-            ConnectorUtils.sendText(getEvalCmd(selectedText));
+            ConnectorUtils.sendText(getEvalCmd(selectedText), null);
         }
 
     }

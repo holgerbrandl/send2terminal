@@ -11,6 +11,7 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.util.text.StringUtil;
 import io.github.holgerbrandl.send2terminal.connectors.ConnectorUtils;
 
@@ -27,6 +28,7 @@ public class EvaluateLineOrSelectionAction extends AnAction {
             return;
         }
 
+        FileType fileType = actionEvent.getData(PlatformDataKeys.VIRTUAL_FILE).getFileType();
 
         String text = ed.getSelectionModel().getSelectedText();
         if (StringUtil.isEmptyOrSpaces(text)) {
@@ -34,7 +36,7 @@ public class EvaluateLineOrSelectionAction extends AnAction {
             text = ed.getSelectionModel().getSelectedText();
         }
 
-        ConnectorUtils.sendText(text);
+        ConnectorUtils.sendText(text, fileType);
     }
 
 }
