@@ -3,9 +3,11 @@ package io.github.holgerbrandl.send2terminal.actions;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
+import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.ex.EditorEx;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
@@ -22,6 +24,7 @@ public class EvaluateExpressionAction extends AnAction {
     public void actionPerformed(AnActionEvent actionEvent) {
 
         final EditorEx editor = (EditorEx) CommonDataKeys.EDITOR.getData(actionEvent.getDataContext());
+
         if (editor == null) {
             return;
         }
@@ -39,7 +42,7 @@ public class EvaluateExpressionAction extends AnAction {
             if (element == null) return; // should never happen, but who knows
 
             // grow it until we hit the file barrier
-            while (element.getParent() != null && !(element.getParent() instanceof PsiFile)) {
+            while (element.getParent() != null && !isStopBarrier(element.getParent())) {
                 element = element.getParent();
             }
 
@@ -59,5 +62,14 @@ public class EvaluateExpressionAction extends AnAction {
                 editor.getCaretModel().getCurrentCaret().moveToOffset(siblingTextPos);
             }
         }
+    }
+
+    private boolean isStopBarrier(PsiElement parent) {
+        return parent instanceof PsiFile || isFunDef(parent);
+    }
+
+    private boolean isFunDef(PsiElement parent) {
+        PsiElement parentParent = parent.getParent();
+        return parentParent.getClass().getName().contains("KtNamedFunction");
     }
 }
