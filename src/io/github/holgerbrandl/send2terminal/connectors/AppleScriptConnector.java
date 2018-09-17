@@ -9,10 +9,12 @@ package io.github.holgerbrandl.send2terminal.connectors;
 
 
 import com.intellij.openapi.fileTypes.FileType;
+import com.intellij.openapi.ui.DialogBuilder;
 import io.github.holgerbrandl.send2terminal.Utils;
 import io.github.holgerbrandl.send2terminal.settings.S2TSettings;
 import org.jetbrains.annotations.Nullable;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -35,12 +37,31 @@ public class AppleScriptConnector implements CodeLaunchConnector {
             if (Utils.isMacOSX()) {
                 Runtime runtime = Runtime.getRuntime();
 
+                boolean pasteModeRequired = Arrays.stream(codeSelection.split("\\r?\\n")).anyMatch(s -> s.trim().startsWith("."));
+
+                if (pasteModeRequired && !S2TSettings.getInstance().usePasteMode) {
+                    DialogBuilder builder = new DialogBuilder();
+                    JLabel jLabel = new JLabel("<html>Can not send multi-line expression to terminal. <br>Please vote for <a href='https://youtrack.jetbrains.net/issue/KT-13319'>KT-13319</a> to push for a REPL paste-mode.<br>Alternatively you could use kshell from <a href='https://github.com/khud/sparklin'>https://github.com/khud/sparklin</a> and enable the paste mode support in the preferences of this plugin</html>");
+                    builder.centerPanel(jLabel);
+//                    builder.setDimensionServiceKey("GrepConsoleSound");
+                    builder.setTitle("Multi-line Expression Error");
+                    builder.removeAllActions();
+
+                    builder.addOkAction();
+
+//                    builder.addCancelAction();
+
+                    builder.show();
+
+                    return;
+                }
+
                 boolean usePasteMode = S2TSettings.getInstance().usePasteMode &&
                         fileType != null &&
                         fileType.getName().toLowerCase().equals("kotlin");
 
                 // just use paste mode if any line starts with a dot
-                usePasteMode = usePasteMode && Arrays.stream(codeSelection.split("\\r?\\n")).anyMatch(s -> s.trim().startsWith("."));
+                usePasteMode = usePasteMode && pasteModeRequired;
 
                 if (usePasteMode) {
                     codeSelection = ":paste\n" + codeSelection;
