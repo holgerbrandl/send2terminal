@@ -13,6 +13,7 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.openapi.vfs.VirtualFile;
 import io.github.holgerbrandl.send2terminal.connectors.ConnectorUtils;
 
 
@@ -22,13 +23,18 @@ import io.github.holgerbrandl.send2terminal.connectors.ConnectorUtils;
  */
 public class EvaluateLineOrSelectionAction extends AnAction {
 
+
     public void actionPerformed(AnActionEvent actionEvent) {
         Editor ed = actionEvent.getData(PlatformDataKeys.EDITOR);
         if (ed == null) {
             return;
         }
 
-        FileType fileType = actionEvent.getData(PlatformDataKeys.VIRTUAL_FILE).getFileType();
+        VirtualFile virtualFile = actionEvent.getData(PlatformDataKeys.VIRTUAL_FILE);
+        FileType fileType = virtualFile.getFileType();
+
+        KotlinImportUtil.autoSendImports(ed, virtualFile);
+
 
         String text = ed.getSelectionModel().getSelectedText();
         if (StringUtil.isEmptyOrSpaces(text)) {
@@ -38,5 +44,6 @@ public class EvaluateLineOrSelectionAction extends AnAction {
 
         ConnectorUtils.sendText(text, fileType);
     }
+
 
 }

@@ -46,6 +46,11 @@ public class EvaluateExpressionAction extends AnAction {
                 element = element.getParent();
             }
 
+            VirtualFile virtualFile = actionEvent.getData(PlatformDataKeys.VIRTUAL_FILE);
+            if (virtualFile != null) {
+                KotlinImportUtil.autoSendImports(editor, virtualFile);
+            }
+
             String expressionText = element.getText();
 
 //            editor.getSelectionModel().setSelection(element.getStartOffsetInParent(), element.getStartOffsetInParent()+ expressionText.length());
