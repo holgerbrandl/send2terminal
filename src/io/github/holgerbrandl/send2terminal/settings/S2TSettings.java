@@ -13,6 +13,7 @@ import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.util.xmlb.annotations.AbstractCollection;
 import com.intellij.util.xmlb.annotations.Tag;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,10 +56,11 @@ public class S2TSettings implements PersistentStateComponent<S2TSettings> {
     }
 
 
-    public void loadState(S2TSettings that) {
+    public void loadState(@NotNull S2TSettings that) {
         this.evalActionPrefs = that.getEvalActionPrefs();
         this.codeSnippetEvalTarget = that.codeSnippetEvalTarget;
         this.keepFocusInEditor = that.keepFocusInEditor;
+        this.usePasteMode = that.usePasteMode;
     }
 
 
