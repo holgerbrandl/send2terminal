@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>send2terminal</id>
     <name>Send To Terminal</name>
-    <version>1.2</version>
+    <version>1.3</version>
     <vendor email="" url="https://github.com/holgerbrandl/send2terminal">Holger Brandl</vendor>
 
     <description><![CDATA[

@@ -1,6 +1,10 @@
 Version History of Send2Terminal
 ===============================
 
+## 1.3
+
+* Improved expression detection heuristics for kotlin
+* Added automatic import push-2-console for Kotlin files: All imports of the current Kotlin file  will be automatically pushed to the console before pushing the actual user code. To clear the internal import cache (which the plugin is using to remember the imports it had pushed already) the user can use the default key binding `ctrl alt meta c`
 
 ## v1.2
 
