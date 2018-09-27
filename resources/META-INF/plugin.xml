@@ -77,6 +77,13 @@
                 <keyboard-shortcut keymap="$default" first-keystroke="meta alt shift ENTER"/>
             </action>
 
+            <action id="ClearImportCache"
+                    class="io.github.holgerbrandl.send2terminal.actions.ClearImportCache"
+                    text="Clear Kotlin Import Cache" description="Clears the import cache of the Send2Terminal plugin">
+                <!--<add-to-group group-id="ToolsMenu" anchor="last"/>-->
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt meta c"/>
+            </action>
+
             <!--<action id="EvalHeadNrow" class="com.r4intellij.actions.HeadNrowEvalAction" text="head+nrow"-->
             <!--description="Evaluates head and nrow for the current data.frame object">-->
             <!--<keyboard-shortcut keymap="$default" first-keystroke="meta alt H"/>-->

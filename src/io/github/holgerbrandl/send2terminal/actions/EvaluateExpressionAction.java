@@ -15,6 +15,7 @@ import com.intellij.psi.PsiWhiteSpace;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
 import io.github.holgerbrandl.send2terminal.connectors.ConnectorUtils;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Holger Brandl
@@ -70,11 +71,21 @@ public class EvaluateExpressionAction extends AnAction {
     }
 
     private boolean isStopBarrier(PsiElement parent) {
-        return parent instanceof PsiFile || isFunDef(parent);
+        return parent instanceof PsiFile || isFunDef(parent) || isScriptExpression(parent);
     }
 
-    private boolean isFunDef(PsiElement parent) {
-        PsiElement parentParent = parent.getParent();
+    private boolean isFunDef(PsiElement element) {
+        PsiElement parentParent = element.getParent();
         return parentParent.getClass().getName().contains("KtNamedFunction");
+    }
+
+    private boolean isScriptExpression(@NotNull PsiElement element) {
+//        PsiElement parent = element.getParent();
+
+        // what a mess ...
+        return element.getParent() != null &&
+//                element.getParent().getParent()!=null &&
+//                element.getParent().getParent().getParent() !=null &&
+                element.getParent().getClass().getName().endsWith("psi.KtScript");
     }
 }

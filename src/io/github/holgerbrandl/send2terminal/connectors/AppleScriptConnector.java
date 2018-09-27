@@ -37,7 +37,12 @@ public class AppleScriptConnector implements CodeLaunchConnector {
             if (Utils.isMacOSX()) {
                 Runtime runtime = Runtime.getRuntime();
 
-                boolean pasteModeRequired = Arrays.stream(codeSelection.split("\\r?\\n")).anyMatch(s -> s.trim().startsWith("."));
+                boolean isKotlin = fileType != null && fileType.getName().toLowerCase().equals("kotlin");
+
+                boolean pasteModeRequired = isKotlin && Arrays.stream(codeSelection.split("\\r?\\n")).map(String::trim).anyMatch(s ->
+                        //is chained call or javadoc
+                        s.startsWith(".") || s.startsWith("*")
+                );
 
                 if (pasteModeRequired && !S2TSettings.getInstance().usePasteMode) {
                     DialogBuilder builder = new DialogBuilder();
@@ -56,9 +61,7 @@ public class AppleScriptConnector implements CodeLaunchConnector {
                     return;
                 }
 
-                boolean usePasteMode = S2TSettings.getInstance().usePasteMode &&
-                        fileType != null &&
-                        fileType.getName().toLowerCase().equals("kotlin");
+                boolean usePasteMode = S2TSettings.getInstance().usePasteMode && isKotlin;
 
                 // just use paste mode if any line starts with a dot
                 usePasteMode = usePasteMode && pasteModeRequired;

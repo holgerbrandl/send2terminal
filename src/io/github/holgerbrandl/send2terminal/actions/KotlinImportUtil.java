@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  */
 public class KotlinImportUtil {
 
-    private static Map<String, List<String>> file2imports = new HashMap<>();
+    static Map<String, List<String>> file2imports = new HashMap<>();
 
     static {
 
