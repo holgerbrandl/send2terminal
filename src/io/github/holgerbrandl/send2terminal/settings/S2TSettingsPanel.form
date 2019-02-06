@@ -10,7 +10,7 @@
     <children>
       <vspacer id="b79c9">
         <constraints>
-          <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="5" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
       <grid id="f1aa0" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -61,7 +61,9 @@
       </grid>
       <component id="38028" class="javax.swing.JLabel">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="243" height="16"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Snippet Action 1"/>
@@ -161,7 +163,9 @@
       </grid>
       <component id="fe250" class="javax.swing.JLabel">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="243" height="16"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Snippet Action 2"/>
@@ -169,7 +173,9 @@
       </component>
       <component id="caa21" class="javax.swing.JLabel">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="243" height="16"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Snippet Action 3"/>
@@ -223,7 +229,9 @@
       </grid>
       <component id="f878d" class="javax.swing.JLabel">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="243" height="16"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Snippet Action 4"/>
@@ -237,7 +245,9 @@
       </component>
       <component id="99943" class="javax.swing.JLabel">
         <constraints>
-          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="243" height="16"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Snippet Evaluation Target"/>
@@ -261,7 +271,9 @@
       </component>
       <component id="17d3d" class="javax.swing.JCheckBox" binding="usePasteModeForCheckBox" default-binding="true">
         <constraints>
-          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="243" height="18"/>
+          </grid>
         </constraints>
         <properties>
           <selected value="false"/>
@@ -270,7 +282,9 @@
       </component>
       <component id="f7497" class="javax.swing.JLabel">
         <constraints>
-          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="243" height="16"/>
+          </grid>
         </constraints>
         <properties>
           <text value="ConEmuC Path (Windows  Only)"/>
@@ -278,7 +292,7 @@
       </component>
       <component id="16385" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="conemuPathField" custom-create="true">
         <constraints>
-          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
       </component>
