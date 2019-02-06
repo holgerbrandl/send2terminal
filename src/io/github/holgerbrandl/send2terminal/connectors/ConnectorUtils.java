@@ -11,6 +11,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.fileTypes.FileType;
 import io.github.holgerbrandl.send2terminal.Utils;
 import io.github.holgerbrandl.send2terminal.settings.S2TSettings;
+import io.github.holgerbrandl.send2terminal.settings.S2TSettingsPanel;
 
 
 /**
@@ -26,19 +27,27 @@ public class ConnectorUtils {
     public static CodeLaunchConnector getPlatformConnector() {
         if (Utils.isMacOSX()) {
             return new AppleScriptConnector();
+
         } else if (Utils.isWindowsPlatform()) {
-            return new RGWLauncher();
-//        }else if (Utils.isLinux()) {
-        } else {
-            log.error("Platform not yet supported for code snippet evaluation");
-            return null;
+            String evalTarget = S2TSettings.getInstance().codeSnippetEvalTarget;
+            if (evalTarget.equals(S2TSettingsPanel.EVAL_TARGET_WINDOWS_CONEMU)) {
+                return new ConEmuConnector();
+
+            } else if (evalTarget.equals(S2TSettingsPanel.EVAL_TARGET_R)) {
+                return new RGWLauncher();
+            }
         }
+//        }else if (Utils.isLinux()) {
+
+
+        log.error("Platform connector for code snippet evaluation not yet supported or missing ");
+        return null;
     }
 
 
     public static void sendText(String text, FileType fileType) {
         CodeLaunchConnector codeLaunchConnector = getPlatformConnector();
-        if (codeLaunchConnector != null) {
+        if (codeLaunchConnector != null && text != null) {
             codeLaunchConnector.submitCode(text, !S2TSettings.getInstance().keepFocusInEditor, fileType);
         }
 

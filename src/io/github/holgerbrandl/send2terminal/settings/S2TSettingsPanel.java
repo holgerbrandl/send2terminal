@@ -7,6 +7,10 @@
 
 package io.github.holgerbrandl.send2terminal.settings;
 
+import com.intellij.openapi.fileChooser.FileChooserDescriptor;
+import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import io.github.holgerbrandl.send2terminal.Utils;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,6 +19,13 @@ import java.util.Arrays;
 
 
 public class S2TSettingsPanel {
+
+    public static final String EVAL_TARGET_MACOS_ITERM = "iTerm";
+    public static final String EVAL_TARGET_R = "R";
+    public static final String EVAL_TARGET_WINDOWS_CONEMU = "Cmdr/ConEmu";
+    public static final String EVAL_TARGET_MACOS_TERMINAL = "Terminal";
+    public static final String EVAL_TARGET_NA = "<NA>";
+
 
     private JComponent rootPanel;
     private JTextField evalTitle1;
@@ -28,10 +39,14 @@ public class S2TSettingsPanel {
     private JComboBox codeEvalTarget;
     private JCheckBox keepFocusInEditorCheckBox;
     private JCheckBox usePasteModeForCheckBox;
+    private TextFieldWithBrowseButton conemuPathField;
 
 
     public static String[] getEvalTargetOptions() {
-        return Utils.isMacOSX() ? new String[]{"Terminal", "iTerm", "R"} : Utils.isWindowsPlatform() ? new String[]{"R"} : new String[]{"<NA>"};
+        return Utils.isMacOSX() ?
+                new String[]{EVAL_TARGET_MACOS_TERMINAL, EVAL_TARGET_MACOS_ITERM, EVAL_TARGET_R} : // macos
+                Utils.isWindowsPlatform() ? new String[]{EVAL_TARGET_R, EVAL_TARGET_WINDOWS_CONEMU} : // windows
+                        new String[]{EVAL_TARGET_NA}; //linux :-(
     }
 
 
@@ -66,6 +81,7 @@ public class S2TSettingsPanel {
         codeEvalTarget.setSelectedItem(settings.codeSnippetEvalTarget == null ? getEvalTargetOptions()[0] : settings.codeSnippetEvalTarget);
         keepFocusInEditorCheckBox.setSelected(settings.keepFocusInEditor);
         usePasteModeForCheckBox.setSelected(settings.usePasteMode);
+        conemuPathField.setText(settings.conemuPath != null ? settings.conemuPath : "NA");
     }
 
 
@@ -87,11 +103,17 @@ public class S2TSettingsPanel {
         settings.codeSnippetEvalTarget = codeEvalTarget.getSelectedItem().toString();
         settings.keepFocusInEditor = keepFocusInEditorCheckBox.isSelected();
         settings.usePasteMode = usePasteModeForCheckBox.isSelected();
+        settings.conemuPath = conemuPathField.getText();
     }
 
 
     private void createUIComponents() {
         String[] evalTargetOptions = getEvalTargetOptions();
         codeEvalTarget = new JComboBox(new DefaultComboBoxModel(evalTargetOptions));
+
+        conemuPathField = new TextFieldWithBrowseButton();
+
+        final FileChooserDescriptor interpreterDescriptor = FileChooserDescriptorFactory.createSingleLocalFileDescriptor();
+        conemuPathField.addBrowseFolderListener("Choose ConEmuC Path", "Choose ConEmuC Path", null, interpreterDescriptor);
     }
 }

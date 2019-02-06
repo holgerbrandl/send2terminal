@@ -51,3 +51,14 @@ activate application currentApplication
 https://apple.stackexchange.com/questions/158854/how-to-differentiate-between-applications-with-the-same-name-in-applescripts
 > When you type `tell application "whatever"` and you click compile, if `whatever` does not exists, it will appear a window that let you choose the application. Try this way.
 
+
+## ConEmu Support
+
+
+```
+
+"C:\Users\brandl\Downloads\cmder\vendor\conemu-maximus5\ConEmu.exe"
+C:\Users\Holger\bin\cmder\vendor\conemu-maximus5\ConEmu\ConEmuC.exe  -GuiMacro:0 Paste(2,"ls")
+
+C:\Users\Holger\bin\cmder\vendor\conemu-maximus5\ConEmu\ConEmuC.exe  -GuiMacro:0 Keys("Return")
+```

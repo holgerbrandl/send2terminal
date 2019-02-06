@@ -10,10 +10,11 @@ The following modes are supported
 
 Supported evaluation targets are
 
+*   [Cmdr](http://cmder.net/) via [conemu](https://conemu.github.io/) (Windows)
+*   [R GUI](https://www.r-project.org/) (Windows)
 *   Terminal (MacOS)
-*   iTerm2 (MacOS)
-*   R GUI (MacOS)
-*   R GUI (Windows)
+*   [iTerm2](https://www.iterm2.com/) (MacOS)
+
 
 
 ##  Kotlin Support
@@ -52,7 +53,7 @@ Those shortcut actions are exposed via the context menu and can be assigned to c
 
 ## How to build?
 
-Clone from `https://github.com/holgerbrandl/send2terminal`, open project in Intellij, and click "Run".
+Clone from `https://github.com/holgerbrandl/send2terminal`, open project in Intellij, Import from Gradle, and click "Run".
 
 
 ## Support & Development

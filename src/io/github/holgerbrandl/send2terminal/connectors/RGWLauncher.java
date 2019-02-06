@@ -12,11 +12,11 @@
 package io.github.holgerbrandl.send2terminal.connectors;
 
 
-import com.intellij.mock.MockLanguageFileType;
 import com.intellij.openapi.fileTypes.FileType;
 import io.github.holgerbrandl.send2terminal.Utils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 
@@ -83,7 +83,7 @@ public class RGWLauncher implements CodeLaunchConnector {
 
 
     @Override
-    public void submitCode(final String rCommands, boolean switchFocus2R, @Nullable FileType fileType) {
+    public void submitCode(@NotNull final String codeSelection, boolean moveFousToEvalTarget, @Nullable FileType fileType) {
         final String[] processCmd = new String[]{fExecutable, SubmitType.SUBMITINPUT.toString().toLowerCase()};
 
         // todo use injtellij process status here :  UsageViewImplUtil.runProcessWithProgress
@@ -93,7 +93,7 @@ public class RGWLauncher implements CodeLaunchConnector {
 //			public void run(final IProgressMonitor monitor) throws InvocationTargetException {
         try {
             Process process = Runtime.getRuntime().exec(processCmd);
-            writeTextToProcess(process, new String[]{rCommands}); // todo maybe we have to split it into lines
+            writeTextToProcess(process, new String[]{codeSelection}); // todo maybe we have to split it into lines
             process.waitFor();
 
         } catch (final Exception e) {

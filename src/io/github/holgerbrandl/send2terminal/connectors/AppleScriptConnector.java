@@ -12,11 +12,15 @@ import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.ui.DialogBuilder;
 import io.github.holgerbrandl.send2terminal.Utils;
 import io.github.holgerbrandl.send2terminal.settings.S2TSettings;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
+
+import static io.github.holgerbrandl.send2terminal.settings.S2TSettingsPanel.EVAL_TARGET_MACOS_ITERM;
+import static io.github.holgerbrandl.send2terminal.settings.S2TSettingsPanel.EVAL_TARGET_MACOS_TERMINAL;
 
 
 /**
@@ -83,7 +87,7 @@ public class AppleScriptConnector implements CodeLaunchConnector {
 //                http://stackoverflow.com/questions/1870270/sending-commands-and-strings-to-terminal-app-with-applescript
 
                 String evalSelection;
-                if (evalTarget.equals("Terminal")) {
+                if (evalTarget.equals(EVAL_TARGET_MACOS_TERMINAL)) {
 //                    if (codeSelection.length() > 1000) {
 //                        DialogBuilder db = new DialogBuilder();
 //                        db.setTitle("Operation canceled: ");
@@ -122,9 +126,7 @@ public class AppleScriptConnector implements CodeLaunchConnector {
                     }
 
 
-
-
-                } else if (evalTarget.equals("iTerm")) {
+                } else if (evalTarget.equals(EVAL_TARGET_MACOS_ITERM)) {
                     evalSelection = "tell application \"iTerm\" to tell current session of current terminal  to write text  \"" + dquotesExpandedText + "\"";
                     if (switchFocusToTerminal) {
                         evalSelection = "tell application \"iTerm\" to activate\n" + evalSelection;
@@ -151,7 +153,7 @@ public class AppleScriptConnector implements CodeLaunchConnector {
 
 
     @Override
-    public void submitCode(String rCommands, boolean switchFocusToTerminal, FileType fileType) {
+    public void submitCode(@NotNull String codeSelection, boolean switchFocusToTerminal, FileType fileType) {
         // If code is long split it up into chunks, because terminal does not accept more than 1024 characters
         // See http://unix.stackexchange.com/questions/204815/terminal-does-not-accept-pasted-or-typed-lines-of-more-than-1024-characters
         // See http://stackoverflow.com/questions/13216480/paste-character-limit
@@ -190,6 +192,6 @@ public class AppleScriptConnector implements CodeLaunchConnector {
 //            submitCodeInternal("", true);
 //        }
 
-        submitCodeInternal(rCommands, switchFocusToTerminal, fileType);
+        submitCodeInternal(codeSelection, switchFocusToTerminal, fileType);
     }
 }

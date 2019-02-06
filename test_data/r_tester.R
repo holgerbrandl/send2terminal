@@ -5,9 +5,11 @@
 1 + 1
 
 
-## eval expression under caret
+## eval expression under caret (focus should progress to next expression)
 
 iris[- 5] %>% head() %>% str
+
+3*3
 
 
 ## eval compex expression with pipe and ggplot

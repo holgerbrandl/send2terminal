@@ -38,6 +38,8 @@ public class S2TSettings implements PersistentStateComponent<S2TSettings> {
     public boolean keepFocusInEditor = true;
     public boolean usePasteMode = false;
 
+    public String conemuPath = "C:\\Users\\brandl\\Downloads\\cmder\\vendor\\conemu-maximus5\\ConEmu\\ConEmuC.exe";
+
     {
         evalActionPrefs.add(new EvalActionPref("head+nrow", "head(%snippet%); nrow(%snippet%);", SNIPACTION_1_DEF_SHORTCUT));
         evalActionPrefs.add(new EvalActionPref("structure", "str(%snippet%);", SNIPACTION_2_DEF_SHORTCUT));
@@ -61,6 +63,7 @@ public class S2TSettings implements PersistentStateComponent<S2TSettings> {
         this.codeSnippetEvalTarget = that.codeSnippetEvalTarget;
         this.keepFocusInEditor = that.keepFocusInEditor;
         this.usePasteMode = that.usePasteMode;
+        this.conemuPath = that.conemuPath;
     }
 
 
