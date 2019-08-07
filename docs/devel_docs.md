@@ -54,11 +54,21 @@ https://apple.stackexchange.com/questions/158854/how-to-differentiate-between-ap
 
 ## ConEmu Support
 
+paste docs <https://conemu.github.io/en/GuiMacro.html#Paste>
+
+from <https://conemu.github.io/en/GuiMacro.html#Command_line> -GuiMacro:0  --> 0 -> Special value means 'Use active tab/split of the first found ConEmu window
+
 
 ```
+C:\Users\brandl\Downloads\cmder\vendor\conemu-maximus5\ConEmu.exe -GuiMacro:0 Paste(2,"ls")
 
-"C:\Users\brandl\Downloads\cmder\vendor\conemu-maximus5\ConEmu.exe"
-C:\Users\Holger\bin\cmder\vendor\conemu-maximus5\ConEmu\ConEmuC.exe  -GuiMacro:0 Paste(2,"ls")
+C:\Users\brandl\Downloads\cmder\vendor\conemu-maximus5\ConEmu\ConEmuC64.exe -GuiMacro:0 Paste(2,"ls")
 
-C:\Users\Holger\bin\cmder\vendor\conemu-maximus5\ConEmu\ConEmuC.exe  -GuiMacro:0 Keys("Return")
+C:\Users\brandl\Downloads\cmder\vendor\conemu-maximus5\ConEmu\ConEmuC64.exe -GuiMacro:0 Paste(2,"foo(\"lala\")")
+
+C:\Users\brandl\Downloads\cmder\vendor\conemu-maximus5\ConEmu\ConEmuC64.exe -GuiMacro:0 Paste 2 foo(\"lala\")
+C:\Users\brandl\Downloads\cmder\vendor\conemu-maximus5\ConEmu\ConEmuC64.exe -GuiMacro:0 Paste 2 "foo( \"lala\")"
+C:\Users\brandl\Downloads\cmder\vendor\conemu-maximus5\ConEmu\ConEmuC64.exe -GuiMacro:0 Paste 2 "foo(\"lala\")"
+
+C:\Users\brandl\Downloads\cmder\vendor\conemu-maximus5\ConEmu\ConEmuC64.exe  -GuiMacro:0 Keys("Return")
 ```

@@ -56,20 +56,14 @@ public class ConEmuConnector implements CodeLaunchConnector {
 //            Process p = new ProcessBuilder().command(conEmuExecutable, "-GuiMacro:0", "Paste(2,\"" + codeSelection + "\")").start();
 //            Process p = new ProcessBuilder().command(conEmuExecutable, "-GuiMacro:0", "Paste(2,\"\"ls -la\"\")").start();
 //            Process p = new ProcessBuilder().command(conEmuExecutable, "-GuiMacro:0", "Paste", "2", "ls -la\nhead\n").start();
-//            String fixedCode = codeSelection.replace("\"", "'") + "\n";
-            String fixedCode = codeSelection.replace("\"", "\\\"");
-            Process p = new ProcessBuilder().command(conEmuExecutable, "-GuiMacro:0", "Paste", "2", fixedCode).start();
+
+
+            // wrap with double quotes as described at https://conemu.github.io/en/GuiMacro.html#Command_line
+            String escapedSnippet = "\"" + codeSelection.replace("\\", "\\\\").replace("\"", "\\\"") + "\"";
+            Process p = new ProcessBuilder().command(conEmuExecutable, "-GuiMacro:0", "Paste", "2", escapedSnippet).start();
             p.waitFor();
-//            System.out.println("exit code was " + p.exitValue());
-
-
-//            String[] args = {conEmuExecutable, "-GuiMacro:0", "Paste(2,\"" + codeSelection + "\")"};
-//            System.out.println("command is " + String.join(" ", args));
-//             new ProcessBuilder().command(conEmuExecutable, "-GuiMacro:0", "Keys(\"Return\")").start().waitFor();
-
         } catch (final Exception e) {
             ConnectorUtils.log.error(e);
-//            throw new RuntimeException(new InvocationTargetException(e));
         }
     }
 
