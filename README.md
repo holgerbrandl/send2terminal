@@ -1,17 +1,20 @@
 Send To Terminal
 ================
 
-Intellij plugin to send line or selection to terminal  
+
+<!-- Plugin description -->
+Intellij plugin to send line or selection to a terminal
+<!-- Plugin description end -->
 
 The following modes are supported
 
-*   Send current line or selection (default shortcut `meta alt ENTER`)
-*   Send current and move focus to next line with expression (default shortcut `meta alt shift ENTER`)
+* Send current line or selection (default shortcut `meta alt ENTER`)
+* Send current and move focus to next line with expression (default shortcut `meta alt shift ENTER`)
 
 Supported evaluation targets are
 
-*   [Cmdr](http://cmder.net/) via [conemu](https://conemu.github.io/) (Windows)
-*   [R GUI](https://www.r-project.org/) (Windows)
+* [Cmdr](http://cmder.net/) via [conemu](https://conemu.github.io/) (Windows)
+* [R GUI](https://www.r-project.org/) (Windows)
 *   Terminal (MacOS)
 *   [iTerm2](https://www.iterm2.com/) (MacOS)
 

@@ -5,27 +5,12 @@
     <vendor email="" url="https://github.com/holgerbrandl/send2terminal">Holger Brandl</vendor>
 
     <description><![CDATA[
-        Intellij plugin to send and evaluate current, selection or expression in terminal<br>
-
-        The following modes are supported
-        <ul>
-            <li> Evaluate the current line or selection in the terminal
-            <li> Evaluate the current most top-level expression under the caret in the terminal
-        </ul>
-
-        Supported evaluation targets are
-        <ul>
-            <li>Terminal (MacOS)
-            <li>iTerm2 (MacOS)
-            <li>R GUI (MacOS)
-            <li>Cmdr/ConEmu (Windows)
-            <li>R GUI (Windows)
-        </ul>
+        Intellij plugin to send line or selection to a terminal
         ]]></description>
 
 
     <change-notes><![CDATA[
-        <p>Changes are documented in our [change log ](https://github.com/holgerbrandl/r4intellij/blob/master/Changes.md)
+        <p>Changes are documented in our [change log ](https://github.com/holgerbrandl/send2terminal/blob/master/Changes.md)
             on the project page.</p>
         ]]>
   </change-notes>
