@@ -19,11 +19,6 @@
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
     <idea-version since-build="203"/>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
-        <editorActionHandler action="EditorPaste" implementationClass="img2md.PasteImageHandler" order="first"/>
-    </extensions>
-
     <!--<actions>-->
     <!--<action id="paste_image" class="img2md.PasteImageFromClipboard" text="Paste Image into Markdown"-->
     <!--description="Paste an image from clipboard at the current cursor position">-->
@@ -40,7 +35,6 @@
             <implementation-class>io.github.holgerbrandl.send2terminal.actions.CodeEvalActionRegistry
             </implementation-class>
         </component>
-        O
     </project-components>
 
 
@@ -50,8 +44,8 @@
         <projectConfigurable instance="io.github.holgerbrandl.send2terminal.settings.S2TConfigurable"/>
         <!--<applicationService serviceInterface="S2TSer"-->
         <!--serviceImplementation="com.r4intellij.settings.RSettings"/>-->
-        <applicationService serviceInterface="io.github.holgerbrandl.send2terminal.settings.S2TSettings"
-                            serviceImplementation="io.github.holgerbrandl.send2terminal.settings.S2TSettings"/>
+        <applicationService
+                serviceImplementation="io.github.holgerbrandl.send2terminal.settings.S2TSettings"/>
     </extensions>
 
     <actions>
