@@ -31,10 +31,7 @@
     <depends>com.intellij.modules.lang</depends>
 
     <project-components>
-        <component>
-            <implementation-class>io.github.holgerbrandl.send2terminal.actions.CodeEvalActionRegistry
-            </implementation-class>
-        </component>
+        <component><implementation-class>io.github.holgerbrandl.send2terminal.actions.CodeEvalActionRegistry</implementation-class></component>
     </project-components>
 
 
