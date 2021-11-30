@@ -1,5 +1,9 @@
 # Changes
 
+## [1.5.1]
+
+* Fixed compatibility with Intellij v2021.3
+
 ## [1.5.0]
 
 * Migrated to more modern plugin infrastructure
