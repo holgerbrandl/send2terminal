@@ -31,6 +31,9 @@ public class EvaluateLineOrSelectionAction extends AnAction {
         }
 
         VirtualFile virtualFile = actionEvent.getData(PlatformDataKeys.VIRTUAL_FILE);
+
+        if(virtualFile==null) return;
+
         FileType fileType = virtualFile.getFileType();
 
         KotlinImportUtil.autoSendImports(ed, virtualFile);
