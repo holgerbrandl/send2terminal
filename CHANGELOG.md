@@ -1,5 +1,13 @@
 # Changes
 
+## [1.7.0]
+
+* Fixed compatibility with Intellij v2022.3
+
+## [1.6.1]
+
+* Fixed compatibility with Intellij v2022.3
+
 ## [1.5.1]
 
 * Fixed compatibility with Intellij v2021.3
